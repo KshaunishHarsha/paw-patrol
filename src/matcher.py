@@ -1,7 +1,6 @@
 from constraints import check_constraints
 from scoring import compute_score
-from explanation import generate_explanation
-from risk_analysis import generate_risk_flags
+from llm_reasoning import generate_match_reasoning
 
 
 def match_pets(adopter, pets):
@@ -15,16 +14,19 @@ def match_pets(adopter, pets):
 
         score = compute_score(adopter, pet)
 
-        explanation = generate_explanation(adopter, pet)
-
-        risks = generate_risk_flags(adopter, pet)
+        reasoning = generate_match_reasoning(
+            adopter,
+            pet.to_dict(),
+            score
+        )
 
         matches.append({
             "PetID": pet["PetID"],
             "Name": pet["Name"],
             "Score": score,
-            "Explanation": explanation,
-            "Risks": risks
+            "Explanation": reasoning.get("explanation", ""),
+            "Risks": reasoning.get("risks", []),
+            "Advice": reasoning.get("advice", [])
         })
 
     matches = sorted(matches, key=lambda x: x["Score"], reverse=True)

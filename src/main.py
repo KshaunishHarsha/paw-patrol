@@ -17,17 +17,20 @@ def main():
 
         print(f"{match['Name']} — Score: {match['Score']}")
 
-        print("Reasons:")
-
-        for r in match["Explanation"]:
-            print(f"  • {r}")
+        print("\nExplanation:")
+        print(match["Explanation"])
 
         if match["Risks"]:
-            print("Potential concerns:")
-            for risk in match["Risks"]:
-                print(f"  ⚠ {risk}")
+            print("\nPotential Concerns:")
+            for r in match["Risks"]:
+                print("⚠", r)
 
-        print()
+        if match["Advice"]:
+            print("\nAdvice:")
+            for a in match["Advice"]:
+                print("•", a)
+
+        print("\n---------------------------\n")
 
 
 if __name__ == "__main__":
