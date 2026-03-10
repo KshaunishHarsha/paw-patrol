@@ -1,4 +1,4 @@
-from scoring_matrices import (
+from .scoring_matrices import (
     energy_matrix,
     time_matrix,
     financial_matrix,
@@ -182,3 +182,21 @@ def compute_score(adopter, pet):
     )
 
     return round(score * 100,2)
+
+
+def compute_score_breakdown(adopter, pet):
+    """Return component scores used by :func:`compute_score`.
+
+    The breakdown keys mirror the weights used in ``compute_score`` so
+    callers can present a detailed compatibility dashboard.
+    """
+    return {
+        "lifestyle": lifestyle_score(adopter, pet),
+        "environment": environment_score(adopter, pet),
+        "financial": financial_score(adopter, pet),
+        "experience": experience_score(adopter, pet),
+        "maintenance": maintenance_score(adopter, pet),
+        "health": health_score(adopter, pet),
+        "behavior": behavior_score(adopter, pet),
+        "commitment": commitment_score(adopter, pet),
+    }

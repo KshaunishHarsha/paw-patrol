@@ -1,11 +1,22 @@
 import os
 import json
+from dotenv import load_dotenv
 import google.generativeai as genai
 
+# read .env so the key is available when module is imported
+load_dotenv()
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    raise RuntimeError(
+        "No API key found for LLM. Please set GEMINI_API_KEY or GOOGLE_API_KEY."
+    )
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+# configure client and pick a valid model
+genai.configure(api_key=api_key)
+
+# upgrade to a currently available release
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 def generate_match_reasoning(adopter, pet, score):

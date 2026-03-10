@@ -1,6 +1,6 @@
-from constraints import check_constraints
-from scoring import compute_score
-from llm_reasoning import generate_match_reasoning
+from .constraints import check_constraints
+from .scoring import compute_score
+from .llm_reasoning import generate_match_reasoning
 
 
 def match_pets(adopter, pets):

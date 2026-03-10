@@ -1,11 +1,22 @@
 import os
+from dotenv import load_dotenv
 import google.generativeai as genai
 from .coverage_tracker import get_missing_attributes
 
+# load environment variables from a .env file in the project root
+load_dotenv()
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# prefer GEMINI_API_KEY but fall back to GOOGLE_API_KEY
+api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    raise RuntimeError(
+        "No API key found. Please set GEMINI_API_KEY (or GOOGLE_API_KEY) in a .env file or the environment."
+    )
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+genai.configure(api_key=api_key)
+
+# choose a supported model; gemini-2.5-flash is available
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 def generate_followup_question(conversation, current_profile):
