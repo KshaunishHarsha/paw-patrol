@@ -221,7 +221,7 @@ The dataset was generated using the following Python workflow:
 import pandas as pd
 import numpy as np
 
-n = 100
+n = 1000
 
 adopters = pd.DataFrame({
     "AdopterID": [f"A{i}" for i in range(1, n+1)],
