@@ -1,123 +1,417 @@
 # PawPatrol: AI-Powered Pet Adoption Matchmaker
 
-PawPatrol is an intelligent pet adoption platform designed to create safer, more reliable, and transparent matches between potential adopters and shelter pets. By computing deterministic compatibility scores and leveraging Large Language Models (LLMs) to explain the reasoning, the system empowers adoption counselors and matching coordinators with actionable insights, risk analysis, and tailored guidance.
+> An explainable AI system that helps shelters place the **right pet in the right home** using deterministic compatibility scoring and LLM-powered reasoning.
 
-![PawPatrol Demo](documentation/pawpatrol-demo.mp4)
-
----
-
-## 🚀 Core Features
-
-- **Smart Compatibility Engine:** Deterministic ranking based on 8 key dimensions including lifestyle, environmental readiness, and financial commitment.
-- **Hard Constraint Filtering:** Rejects matches based on clear safety thresholds (e.g., placing high-energy pets in unsuited enclosed spaces, or placing pets requiring a mature environment in homes with toddlers).
-- **LLM-Powered Explanations:** Real-time generation of natural-language reasoning summarizing *why* a match is highly rated, along with specific risks and actionable advice for the adopter.
-- **Adaptive Questionnaire:** An intelligent, context-aware Next.js conversational flow that dynamically adjusts its questions based on the adopter's previous answers to efficiently capture a complete profile.
-- **Modern Interactive Dashboard:** A polished Next.js client visualizing compatibility breakdowns, pet characteristics, and AI-driven match insights.
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-backend-green)
+![Next.js](https://img.shields.io/badge/Next.js-frontend-black)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
-## 🏗️ Technical Architecture
+# Why PawPatrol Matters
 
-PawPatrol is a full-stack application built with the following technologies:
+Every year, thousands of pet adoptions fail because adopters and pets are **poorly matched**.
 
-### Backend API (`src/api`)
-- **FastAPI:** High-performance, async web framework for handling the REST API.
-- **Python Data Stack:** Pandas and NumPy are used internally for handling the structured datasets and computing weighted match scores.
-- **LLM Integration:** `google-generativeai` (Gemini API) is seamlessly integrated to parse the adaptive questionnaire responses and to generate plain-text reasoning outputs.
+Traditional adoption platforms rely on **manual filtering and subjective judgment**.
 
-### Frontend Application (`frontend/`)
-- **Next.js 15+ & React 19:** Utilizing the App Router for modern component-based architecture and Server-Side Rendering capabilities.
-- **Tailwind CSS & Framer Motion:** For creating a responsive, highly polished, and fluid user interface.
-- **Lucide React:** Scalable iconography.
+PawPatrol introduces an **AI-assisted adoption matching system** that:
 
----
+* reduces failed adoptions
+* improves pet welfare
+* supports shelters with explainable insights
+* helps adopters understand *why* a pet fits their lifestyle
 
-## 🛠️ Setup Instructions
-
-### 1. Prerequisites
-- **Python 3.10+**
-- **Node.js 20+**
-- A **Google Gemini API Key**
-
-### 2. Backend Setup
-
-1. **Navigate to the root directory:**
-   ```bash
-   cd paw-patrol
-   ```
-2. **Install Python dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-   *(Note: Ensure you have `fastapi`, `uvicorn`, `pandas`, `numpy`, `python-dotenv`, and `google-generativeai` installed.)*
-3. **Configure Environment Variables:**
-   Create a `.env` file in the root directory and add your key:
-   ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   ```
-4. **Run the API Server:**
-   ```bash
-   python -m uvicorn src.api.main:app --reload --port 8000
-   ```
-   The backend will be available at [http://localhost:8000](http://localhost:8000). You can check the interactive docs at `/docs`.
-
-### 3. Frontend Setup
-
-1. **Navigate to the frontend directory:**
-   ```bash
-   cd paw-patrol/frontend
-   ```
-2. **Install Node dependencies:**
-   ```bash
-   npm install
-   ```
-3. **Configure Environment Variables:**
-   Create a `.env.local` file in the `frontend/` directory (if different from default backend URL):
-   ```env
-   NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
-   ```
-4. **Run the Development Server:**
-   ```bash
-   npm run dev
-   ```
-   The frontend will be available at [http://localhost:3000](http://localhost:3000).
+By combining **deterministic compatibility scoring** with **LLM-generated reasoning**, PawPatrol delivers both **accuracy and transparency**.
 
 ---
 
-## 📖 Phase-by-Phase Development
+# 🎥 Demo
 
-The development of PawPatrol was structured into distinct, logical phases. You can read the detailed documentation for each phase in the `documentation/` directory:
+▶️ **Watch the full product demo**
 
-1. **[Phase 1: Pet Dataset Preparation](documentation/phase1_pet_dataset_preparation.md)**  
-   Cleaned and enriched a dataset of 14,000+ pets by generating compatibility-focused traits (energy, space, grooming) from raw shelter metadata.
-2. **[Phase 2: Adopter Dataset Preparation](documentation/phase2_adopter_dataset_prep.md)**  
-   Created a synthetic dataset mapping exactly to the pet required traits to test the matching algorithm during development.
-3. **[Phase 3: Compatibility Scoring Engine](documentation/phase3_compatibility_scoring_matching.md)**  
-   Implemented the core deterministic matching logic using matrices, constraint filtering, and weighted scoring logic across 8 distinct dimensions.
-4. **[Phase 4: LLM-Based Reasoning](documentation/phase4_llm_based_reasoning.md)**  
-   Integrated Gemini to synthesize the raw numerical compatibility outputs into actionable insights (explanations, risks, and advice).
-5. **[Phase 5: Adaptive Questionnaire](documentation/phase5_adaptive_questionnaire.md)**  
-   Designed a conversational system utilizing the LLM to dynamically determine which adopter attributes are missing and to formulate follow-up questions.
-6. **[Phase 6: API Layer](documentation/phase6_api_and_reasoning.md)**  
-   Wrapped the core engine inside a FastAPI application to serve compatibility scores and reasoning outputs to clients.
-7. **[Phase 7: Compatibility Dashboard Endpoint](documentation/phase7_compatibility_dashboard.md)**  
-   Created specialized API formatting designed to gracefully feed a frontend dashboard with a granular breakdown of scores alongside the AI reasoning.
-8. **[Phase 8: Frontend Architecture & Final Fixes](documentation/phase8_frontend_and_final_fixes.md)**  
-   Built the comprehensive Next.js web application, solving integration bugs and enabling users to actually test the full flow end-to-end.
+[DEMO VIDEO](https://youtu.be/0lQgpsTWUTc?si=JDcYgTGt2dWXweeD)
 
 ---
 
-## 🔮 Future Improvements
+# 🖼️ Screenshots
 
-While PawPatrol is fully functioning, it serves as a powerful prototype that can be evolved into a production-ready enterprise product with several future enhancements:
+### Adaptive Questionnaire
 
-- **Deterministic Constraint Enhancements:**
-  Currently, many traits map to categorical strings (e.g., `"low"`, `"medium"`, `"high"`). Future iterations should transition these characteristics into true exact variables for highly accurate edge-case resolution.
-  - *Income/Budget:* Asking for exact or bracketed dollar amounts (e.g., $100/mo vs $300/mo) mapped directly against actual breed-specific veterinary costs instead of a `"high"` budget category.
-  - *Square Footage:* Asking for exact living space in square feet/meters instead of relying on subjective terms like `"small"` or `"large"` home, matching these against exact breed spatial requirements.
-- **Deep Historical Analytics Integration:**
-  Improving the heuristic scoring weights by applying machine learning specifically trained on *historical outcomes* (e.g., analyzing patterns in adoption returns to identify factors most likely to cause adoption failure).
-- **Extended External Data Sources:**
-  Automating the enrichment of pet profiles using specialized veterinary and breed APIs to handle variables like inherited conditions, actual lifetime costs, and detailed local climate matching.
-- **Shelter CRM Integrations:**
-  Connecting directly with major shelter management systems (like Petfinder Pro or Shelterluv) to pull active, live pet inventory on a regular schedule.
+![Questionnaire](documentation/screenshots/questionnaire.png)
+
+### Pet Match Results
+
+![Results](documentation/screenshots/results.png)
+
+### Compatibility Details
+
+![Details](documentation/screenshots/details.png)
+
+---
+
+# 🚀 Core Features
+
+### Smart Compatibility Engine
+
+Deterministic ranking based on **8 compatibility dimensions** including:
+
+* lifestyle compatibility
+* environmental readiness
+* financial commitment
+* grooming requirements
+* energy level matching
+* family environment
+
+This ensures **objective and repeatable match scoring**.
+
+---
+
+### Hard Constraint Filtering
+
+Unsafe matches are automatically rejected.
+
+Examples:
+
+* high-energy pets → unsuitable for small apartments
+* pets requiring calm environments → filtered for homes with toddlers
+
+This protects **both pets and adopters**.
+
+---
+
+### LLM-Powered Explanations
+
+Large Language Models generate **natural language explanations** describing:
+
+* why a match scored highly
+* potential risks
+* preparation advice for adopters
+
+This turns raw compatibility scores into **actionable guidance**.
+
+---
+
+### Adaptive Questionnaire
+
+A conversational system dynamically asks **only relevant questions** based on previous answers.
+
+Benefits:
+
+* shorter onboarding
+* better adopter profiling
+* improved matching accuracy
+
+---
+
+### Interactive Compatibility Dashboard
+
+A modern web interface visualizes:
+
+* compatibility score breakdowns
+* pet characteristics
+* AI-generated reasoning
+* adoption insights
+
+Built with a responsive and polished UI.
+
+---
+
+# 💡 Key Innovation
+
+Most adoption platforms rely on **manual search filters**.
+
+PawPatrol introduces a **hybrid deterministic + AI reasoning architecture**.
+
+* deterministic scoring guarantees **safety and reliability**
+* LLM reasoning provides **clear human explanations**
+
+This allows shelters to make **faster, safer, and more explainable adoption decisions**.
+
+---
+
+# 🧠 Technical Architecture
+
+PawPatrol is a **full-stack AI application**.
+
+---
+
+## Backend (`src/api`)
+
+Built with **FastAPI**.
+
+Responsibilities:
+
+* compatibility scoring
+* constraint filtering
+* questionnaire logic
+* LLM explanation generation
+* REST API endpoints
+
+Technologies used:
+
+* FastAPI
+* Pandas
+* NumPy
+* Google Gemini API
+* Python
+
+---
+
+## Frontend (`frontend/`)
+
+Built with **Next.js 15 and React 19**.
+
+Features:
+
+* adaptive questionnaire flow
+* compatibility visualization
+* real-time API integration
+* responsive UI
+
+Technologies used:
+
+* Next.js (App Router)
+* Tailwind CSS
+* Framer Motion
+* Lucide React
+
+---
+
+# 🧠 System Architecture
+
+```
+Adopter
+   ↓
+Adaptive Questionnaire
+   ↓
+Profile Extraction
+   ↓
+Compatibility Engine
+   ↓
+Constraint Filtering
+   ↓
+Compatibility Scores
+   ↓
+LLM Reasoning
+   ↓
+FastAPI API Layer
+   ↓
+Next.js Dashboard
+```
+
+---
+
+# 📂 Project Structure
+
+```
+paw-patrol/
+│
+├ frontend/                # Next.js frontend application
+│
+├ src/
+│   ├ api/                 # FastAPI routes
+│   ├ questionnaire/       # Adaptive questionnaire logic
+│   ├ matcher.py           # Core compatibility matching engine
+│   ├ scoring.py           # Weighted scoring logic
+│   ├ scoring_matrices.py  # Compatibility matrices
+│   └ llm_reasoning.py     # LLM reasoning generation
+│
+├ data/
+│   ├ datasets/
+│   │   ├ raw/
+│   │   └ processed/
+│   └ notebooks/           # Data preparation notebooks
+│
+├ documentation/           # Phase-by-phase project documentation
+│
+└ README.md
+```
+
+---
+
+# 🛠️ Setup Instructions
+
+## 1️⃣ Prerequisites
+
+You will need:
+
+* Python **3.10+**
+* Node.js **20+**
+* a **Google Gemini API key**
+
+---
+
+# Backend Setup
+
+Navigate to the project root:
+
+```bash
+cd paw-patrol
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Environment Variables
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Then fill in your API key.
+
+Example:
+
+```
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+---
+
+Run the backend server:
+
+```bash
+python -m uvicorn src.api.main:app --reload --port 8000
+```
+
+Backend runs at:
+
+```
+http://localhost:8000
+```
+
+API docs available at:
+
+```
+http://localhost:8000/docs
+```
+
+---
+
+# Frontend Setup
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create `.env.local` if needed:
+
+```
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Frontend runs at:
+
+```
+http://localhost:3000
+```
+
+---
+
+# 📖 Phase-by-Phase Development
+
+The project was built in **eight structured phases**.
+
+Detailed documentation is available in the `documentation/` directory.
+
+1. **Phase 1 — Pet Dataset Preparation**
+   Cleaned and enriched a dataset of 14,000+ pets with compatibility traits.
+
+2. **Phase 2 — Adopter Dataset Preparation**
+   Created a synthetic dataset to test the matching engine.
+
+3. **Phase 3 — Compatibility Scoring Engine**
+   Implemented deterministic matching across 8 dimensions.
+
+4. **Phase 4 — LLM-Based Reasoning**
+   Integrated Gemini to explain compatibility scores.
+
+5. **Phase 5 — Adaptive Questionnaire**
+   Built a conversational profiling system.
+
+6. **Phase 6 — API Layer**
+   Wrapped the engine in a FastAPI backend.
+
+7. **Phase 7 — Dashboard API**
+   Designed endpoints optimized for UI visualizations.
+
+8. **Phase 8 — Frontend Application**
+   Developed the full Next.js adoption platform.
+
+---
+
+# 🔮 Future Improvements
+
+PawPatrol currently functions as a **working prototype**.
+
+Future improvements include:
+
+### Deterministic Constraint Enhancements
+
+Move from categorical traits to exact variables:
+
+* monthly pet care budget
+* home square footage
+* veterinary cost estimates
+
+---
+
+### Machine Learning Optimization
+
+Train models on **historical adoption outcomes** to refine compatibility scoring.
+
+Example signals:
+
+* adoption returns
+* long-term pet health outcomes
+* owner satisfaction
+
+---
+
+### External Data Integrations
+
+Integrate veterinary and breed databases for:
+
+* health risk prediction
+* lifetime cost estimates
+* climate compatibility
+
+---
+
+### Shelter CRM Integration
+
+Integrate with systems such as:
+
+* Petfinder
+* Shelterluv
+* RescueGroups
+
+Allowing PawPatrol to operate on **live shelter inventories**.
+
+---
+
+# 📜 License
+
+This project is released under the **MIT License**.
