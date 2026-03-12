@@ -2,7 +2,7 @@
 
 PawPatrol is an intelligent pet adoption platform designed to create safer, more reliable, and transparent matches between potential adopters and shelter pets. By computing deterministic compatibility scores and leveraging Large Language Models (LLMs) to explain the reasoning, the system empowers adoption counselors and matching coordinators with actionable insights, risk analysis, and tailored guidance.
 
-![OpenPaws Demo](documentation/pawpatrol-demo.mp4)
+![PawPatrol Demo](documentation/pawpatrol-demo.mp4)
 
 ---
 
