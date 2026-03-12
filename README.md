@@ -362,6 +362,9 @@ Detailed documentation is available in the `documentation/` directory.
 8. **Phase 8 — Frontend Application**
    Developed the full Next.js adoption platform.
 
+9. **Thinking, Approach and Mission behind PawPatrol**
+   Read the document called `thinking_approach.md` in the `documentation/` directory to know what went behind bringing this idea to life.
+
 ---
 
 # 🔮 Future Improvements
