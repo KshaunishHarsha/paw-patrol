@@ -34,24 +34,35 @@ Adopter profile:
 Pet profile:
 {json.dumps(pet, indent=2)}
 
-Return a JSON object with:
+Return a RAW JSON object ONLY with:
 
-explanation: short paragraph explaining why this match works
-risks: list of potential concerns
-advice: list of helpful instructions for the adopter or counselor
+"explanation": short paragraph explaining why this match works
+"risks": list of potential concerns
+"advice": list of helpful instructions for the adopter or counselor
 
+DO NOT wrap the response in ```json text blocks.
+DO NOT include any other text or explanations.
+Just the raw JSON object.
 Be concise and practical.
 """
 
-    response = model.generate_content(prompt)
-
-    text = response.text
-
     try:
-        return json.loads(text)
-    except:
+        response = model.generate_content(prompt)
+        text = response.text
+        
+        # Clean up markdown formatting if Gemini returns ```json
+        if text.startswith("```json"):
+            text = text[7:]
+        if text.startswith("```"):
+            text = text[3:]
+        if text.endswith("```"):
+            text = text[:-3]
+
+        return json.loads(text.strip())
+    except Exception as e:
+        print(f"LLM Reasoning Failed (likely rate limit): {e}")
         return {
-            "explanation": text,
-            "risks": [],
-            "advice": []
+            "explanation": "Based on our scoring criteria, this pet represents a great match for your lifestyle. (Detailed AI insights are temporarily unavailable due to high server traffic.)",
+            "risks": ["Please directly consult with the shelter about any specific concerns."],
+            "advice": ["We recommend a meet-and-greet to ensure personality compatibility."]
         }

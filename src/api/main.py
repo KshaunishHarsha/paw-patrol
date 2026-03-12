@@ -1,11 +1,20 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .questionnaire_routes import router as questionnaire_router
 from .matching_routes import router as matching_router
 
 app = FastAPI(
-    title="OpenPaws Adoption Matching API",
+    title="PawPatrol Adoption Matching API",
     description="AI-powered pet adoption compatibility system",
     version="1.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(questionnaire_router)
