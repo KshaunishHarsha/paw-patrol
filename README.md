@@ -30,6 +30,7 @@ By combining **deterministic compatibility scoring** with **LLM-generated reason
 
 ▶️ **Watch the full product demo**
 
+[DEPLOYED DEMO](https://paw-patrol-pied.vercel.app/) (might fail in case we reach rate limits)
 [DEMO VIDEO](https://youtu.be/0lQgpsTWUTc?si=JDcYgTGt2dWXweeD)
 
 ---
